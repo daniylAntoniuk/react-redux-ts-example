@@ -31,7 +31,6 @@ export interface GetMoviesRequestSucces {
 	page: number,
 	results: number,
     loading: boolean;
-    error: null | string;
 }
 export interface GetMoviesRequestError {
     type: MoviesActionsTypes.GET_MOVIES_ERROR,

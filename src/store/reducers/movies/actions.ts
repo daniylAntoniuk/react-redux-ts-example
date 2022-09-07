@@ -18,7 +18,7 @@ export const getMoviesRequestSuccess = (movies: Object) => (
 
 export const getMoviesRequestFailure = (error: Object) => (
 	{
-		type: MoviesActionsTypes.GET_MOVIES_SUCCESS,
+		type: MoviesActionsTypes.GET_MOVIES_ERROR,
 		data: error
 	}
 );

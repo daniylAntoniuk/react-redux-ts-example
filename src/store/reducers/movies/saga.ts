@@ -3,7 +3,9 @@ import { apiRequest } from '../../apiRequest';
 import { URLs } from '../../urls';
 import {
 	MoviesActionsTypes,
-	IMoviesResult
+	IMoviesResult,
+	GetMoviesRequestSucces,
+	GetMoviesRequestError
 } from './types';
 
 
@@ -15,38 +17,40 @@ function* sendGetMoviesRequest (action: any) {
 			endpoint: URLs.GET_MOVIES_ENDPOINT.concat(action.page),
 			method: 'GET'
 		});
-		
+
 		if (response.results.length > 0) {
-			yield put({
+			let putData: GetMoviesRequestSucces = {
 				type: MoviesActionsTypes.GET_MOVIES_SUCCESS,
 				movies: response.results,
 				pages: response.total_pages,
 				page: response.page,
 				results: response.total_results,
 				loading: false
-			});
+			};
+			yield put(putData);
 		}
 
 		if (response.status_message) {
-			yield put({
+			let putData: GetMoviesRequestError = {
 				type: MoviesActionsTypes.GET_MOVIES_ERROR,
 				error: response.status_message,
 				loading: false
-			});
+			};
+			yield put(putData);
 		}
 
-	} catch (e) {
-		yield put({
+	} catch (e : any) {
+		let putData: GetMoviesRequestError = {
 			type: MoviesActionsTypes.GET_MOVIES_ERROR,
 			error: e,
 			loading: false
-		});
+		};
+		yield put(putData);
 	}
 }
 
 
-function* handler() {
+export function* handler() {
 	yield takeLatest(MoviesActionsTypes.GET_MOVIES, sendGetMoviesRequest);
 }
 
-export {handler};
