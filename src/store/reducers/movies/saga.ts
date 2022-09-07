@@ -27,7 +27,7 @@ function* sendGetMoviesRequest (action: any) {
 				results: response.total_results,
 				loading: false
 			};
-			yield put(putData);
+			yield put<GetMoviesRequestSucces>(putData);
 		}
 
 		if (response.status_message) {
@@ -36,7 +36,7 @@ function* sendGetMoviesRequest (action: any) {
 				error: response.status_message,
 				loading: false
 			};
-			yield put(putData);
+			yield put<GetMoviesRequestError>(putData);
 		}
 
 	} catch (e : any) {
@@ -45,7 +45,7 @@ function* sendGetMoviesRequest (action: any) {
 			error: e,
 			loading: false
 		};
-		yield put(putData);
+		yield put<GetMoviesRequestError>(putData);
 	}
 }
 
